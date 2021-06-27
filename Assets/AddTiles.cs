@@ -15,20 +15,13 @@ public class AddTiles : MonoBehaviour
         for (var i = 0; i < buttons.Length; i++)
         {
             var i1 = i;
-            buttons[i].GetComponent<Button>()?.onClick.AddListener(call: ()=> addTile(index: i1));
+            buttons[i].GetComponent<Button>()?.onClick.AddListener(call: ()=> AddTile(index: i1));
         }
     }
 
-    private void addTile(int index) {
+    private void AddTile(int index) {
         Debug.Log ("You have clicked the button! " + index);
-      //  tilesContainers.GetChild(index)
-            
+        Instantiate(tilePrefab, tilesContainers.GetChild(index));
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-       
-    }
-
+    
 }
