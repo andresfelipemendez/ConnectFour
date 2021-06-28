@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,7 +9,14 @@ public class AddTiles : MonoBehaviour
 {
     // Start is called before the first frame update
     public Transform tilesContainers;
-    public GameObject tilePrefab;
+    public GameObject p1TilePrefab;
+    public GameObject p2TilePrefab;
+
+    private void Awake()
+    {
+        
+    }
+
     private void Start()
     {
         var buttons = GameObject.FindGameObjectsWithTag(tag: "AddTileButton");
@@ -21,7 +29,7 @@ public class AddTiles : MonoBehaviour
 
     private void AddTile(int index) {
         Debug.Log ("You have clicked the button! " + index);
-        Instantiate(tilePrefab, tilesContainers.GetChild(index));
+        Instantiate(p1TilePrefab, tilesContainers.GetChild(index));
     }
     
 }
