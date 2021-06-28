@@ -4,19 +4,9 @@ using UnityEngine;
 
 public class TileManager 
 {
-     
-        public int[,] Board = new int[7,6];
-    // Start is called before the first frame update
-    void Start()
+    public int[,] Board = new int[6, 7];
+    public void AddTile(int x, int y, int val)
     {
-        
+        Board[x, y] = val;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    
-    
 }
