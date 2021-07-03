@@ -63,7 +63,8 @@ public class NewTestScript
             {16, 17, 18, 19, 20,},
             {21, 22, 23, 23, 25,},
         };
-        var res = TileManager.GetUpDiagonal(3, 0, input);
+        var res = TileManager.GetDiagonalDown(3, 0, input);
+        var res1 = TileManager.GetDiagonalDown(4, 1, input);
         string l="";
         for (int i = 0; i < res.GetLength(0); i++)
         {
@@ -74,6 +75,8 @@ public class NewTestScript
         Debug.Log( l); 
         Assert.AreEqual(4, input[0,3]);
         Assert.AreEqual(10, input[1,4]);
-        Assert.AreEqual(new []{4,10}, res);
+        
+        Assert.AreEqual(new []{4,10,0,0,0}, res);
+        Assert.AreEqual(res, res1);
     }
 }
