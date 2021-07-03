@@ -51,4 +51,29 @@ public class NewTestScript
             {0, 1, 1, 1, 0, 0, 0},
         });
     }
+
+    [Test]
+    public void TestDiagonal()
+    {
+        var input = new[,]
+        {
+            { 1,  2,  3,  4,  5,},
+            { 6,  7,  8,  9, 10,},
+            {11, 12, 13, 14, 15,},
+            {16, 17, 18, 19, 20,},
+            {21, 22, 23, 23, 25,},
+        };
+        var res = TileManager.GetUpDiagonal(3, 0, input);
+        string l="";
+        for (int i = 0; i < res.GetLength(0); i++)
+        {
+            
+            l += res[i] + "\t";
+           
+        }
+        Debug.Log( l); 
+        Assert.AreEqual(4, input[0,3]);
+        Assert.AreEqual(10, input[1,4]);
+        Assert.AreEqual(new []{4,10}, res);
+    }
 }
