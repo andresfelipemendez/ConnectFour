@@ -30,8 +30,9 @@ public class AddTiles : MonoBehaviour
 
     private void AddTile(int index) {
         
-        Instantiate(p1TilePrefab, tilesContainers.GetChild(index));
+        Instantiate(player == Player.P1 ? p1TilePrefab : p2TilePrefab, tilesContainers.GetChild(index));
         _tileManager.AddTile(index,player);
+        player = player == Player.P1 ? Player.P2 : Player.P1;
         //_tileManager.NumberOfTiles[index]++;
     }
     
