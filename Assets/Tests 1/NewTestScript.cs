@@ -6,10 +6,41 @@ using UnityEngine.TestTools;
 
 public class NewTestScript
 {
+    int[,] input = new[,]
+    {  // 0   1   2   3   4
+        { 1,  2,  3,  4,  5,},
+        { 6,  7,  8,  9, 10,},
+        {11, 12, 13, 14, 15,},
+        {16, 17, 18, 19, 20,},
+        {21, 22, 23, 23, 25,},
+    };
+
+    void PrintMatrix(int[,] mat)
+    {
+        for (int i = 0; i < mat.GetLength(0); i++)
+        {
+            string l="";
+            for (int j = 0; j < mat.GetLength(1); j++)
+            {
+                l += mat[i,j] + "\t";
+            }
+            Debug.Log( l);
+        }
+    }
+    void PrintArray(int[] arr)
+    {
+        string l="";
+        for (int i = 0; i < arr.GetLength(0); i++)
+        {
+            
+            l += arr[i] + "\t";
+           
+        }
+        Debug.Log( l);
+    }
     [Test]
     public void AddTile()
     {
-        // Use the Assert class to test conditions
         var tilemanager = new TileManager();
         tilemanager.AddTile(0, 0, 1);
         Assert.AreEqual(1, tilemanager.Board[0,0]);
@@ -31,17 +62,6 @@ public class NewTestScript
         };
         tilemanager.AddTile(0, 0, 1);
         
-        
-        for (int i = 0; i < tilemanager.Board.GetLength(0); i++)
-        {
-            string l="";
-            for (int j = 0; j < tilemanager.Board.GetLength(1); j++)
-            {
-                l += tilemanager.Board[i,j] + "\t";
-            }
-            Debug.Log( l);
-        }
-        
         Assert.AreEqual(tilemanager.Board, new int[6, 7] {
             {1, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0},
@@ -55,28 +75,42 @@ public class NewTestScript
     [Test]
     public void TestDiagonal()
     {
-        var input = new[,]
-        {
-            { 1,  2,  3,  4,  5,},
-            { 6,  7,  8,  9, 10,},
-            {11, 12, 13, 14, 15,},
-            {16, 17, 18, 19, 20,},
-            {21, 22, 23, 23, 25,},
-        };
+        
         var res = TileManager.GetDiagonalDown(3, 0, input);
         var res1 = TileManager.GetDiagonalDown(4, 1, input);
-        string l="";
-        for (int i = 0; i < res.GetLength(0); i++)
-        {
-            
-            l += res[i] + "\t";
-           
-        }
-        Debug.Log( l); 
+         
         Assert.AreEqual(4, input[0,3]);
         Assert.AreEqual(10, input[1,4]);
         
         Assert.AreEqual(new []{4,10,0,0,0}, res);
         Assert.AreEqual(res, res1);
+    }
+
+    [Test]
+    public void TestDiagonalUp()
+    {
+        {    
+            var (diagonalStartX, diagonalStartY) = TileManager.GetDiagonalUpStart(1,1,5,5);
+            Assert.AreEqual(0, diagonalStartX);
+            Assert.AreEqual(2, diagonalStartY);
+        }
+        {
+            var (diagonalStartX, diagonalStartY) = TileManager.GetDiagonalUpStart(1,1,2,3);
+            Assert.AreEqual(0, diagonalStartX);
+            Assert.AreEqual(2, diagonalStartY);
+        }
+        
+        {
+            var (diagonalStartX, diagonalStartY) = TileManager.GetDiagonalUpStart(3,0,4,2);
+            Assert.AreEqual(2, diagonalStartX);
+            Assert.AreEqual(1, diagonalStartY);
+        }
+        
+        var res = TileManager.GetDiagonalUp(3, 0, input);
+        var res1 = TileManager.GetDiagonalUp(4, 1, input);
+        PrintArray(res);
+        PrintArray(res1);
+        Assert.AreEqual(new []{16,12,8,4,0}, res);
+        Assert.AreEqual(new []{22,18,14,10,0}, res1);
     }
 }
