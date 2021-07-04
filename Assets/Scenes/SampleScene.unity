@@ -2090,6 +2090,8 @@ MonoBehaviour:
   p1TilePrefab: {fileID: 3646846332685635342, guid: 824a2cacf5d14e742a949b8705b09848, type: 3}
   p2TilePrefab: {fileID: 3646846332685635342, guid: c96119dec4ee9af4d9545d3810f5a13f, type: 3}
   player: 1
+  winPanel: {fileID: 1773953955}
+  winText: {fileID: 366559427}
 --- !u!1001 &1278485662
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3031,7 +3033,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1773953956
 RectTransform:
   m_ObjectHideFlags: 0
