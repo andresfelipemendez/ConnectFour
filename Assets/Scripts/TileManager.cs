@@ -3,9 +3,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Player
+{
+    P1 = 1,
+    P2 = 2
+}
 public class TileManager 
 {
+    public int[] NumberOfTiles;
     public int[,] Board = new int[6, 7];
+    
+    public void AddTile(int column, Player player)
+    {
+        NumberOfTiles[column]++;
+        var y = (Board.GetLength(0)) - NumberOfTiles[column];
+        var x = column;
+        Board[y,x] = (int) player;
+    }
+    
     public void AddTile(int x, int y, int val)
     {
         Board[x, y] = val;

@@ -17,15 +17,18 @@ public class NewTestScript
 
     void PrintMatrix(int[,] mat)
     {
+        string l="";
         for (int i = 0; i < mat.GetLength(0); i++)
         {
-            string l="";
             for (int j = 0; j < mat.GetLength(1); j++)
             {
                 l += mat[i,j] + "\t";
             }
-            Debug.Log( l);
+
+            l += "\n";
+
         }
+        Debug.Log(l);
     }
     void PrintArray(int[] arr)
     {
@@ -125,9 +128,56 @@ public class NewTestScript
         Assert.AreEqual((true,2), TileManager.IsWin(new []{2,2,2,2,0}));
         Assert.AreEqual((false,0), TileManager.IsWin(new []{2,2,0,2,2}));
         
-        Assert.AreEqual((true,2), TileManager.IsWin(new []{0,2,2,2,2}));
-        Assert.AreEqual((true,2), TileManager.IsWin(new []{2,2,2,2,2}));
-        Assert.AreEqual((true,2), TileManager.IsWin(new []{2,2,2,2,0}));
-        Assert.AreEqual((false,0), TileManager.IsWin(new []{2,2,0,2,2}));
+        Assert.AreEqual((true,1), TileManager.IsWin(new []{0,1,1,1,1}));
+        Assert.AreEqual((true,1), TileManager.IsWin(new []{1,1,1,1,1}));
+        Assert.AreEqual((true,1), TileManager.IsWin(new []{1,1,1,1,0}));
+        Assert.AreEqual((false,0), TileManager.IsWin(new []{1,1,0,1,1}));
+    }
+
+    [Test]
+    public void AddTileByColumn()
+    {
+        var tileManager = new TileManager
+        {
+            NumberOfTiles = new int[7]
+        };
+        tileManager.AddTile(0,Player.P1);
+        Assert.AreEqual(new int[]{ 1,0,0,0,0,0,0}, tileManager.NumberOfTiles);
+        
+        Assert.AreEqual(new int[6, 7]
+        {
+            {0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0},
+            {1, 0, 0, 0, 0, 0, 0},
+        }, tileManager.Board);
+        
+        tileManager.AddTile(3,Player.P2);
+        Assert.AreEqual(new int[]{ 1,0,0,1,0,0,0}, tileManager.NumberOfTiles);
+        Assert.AreEqual(new int[6, 7]
+        {
+            {0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0},
+            {1, 0, 0, 2, 0, 0, 0},
+        }, tileManager.Board);
+        
+        tileManager.AddTile(0,Player.P1);
+        PrintMatrix(tileManager.Board);
+        Assert.AreEqual(new int[]{ 2,0,0,1,0,0,0}, tileManager.NumberOfTiles);
+        Assert.AreEqual(new int[6, 7]
+        {
+            {0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0},
+            {1, 0, 0, 0, 0, 0, 0},
+            {1, 0, 0, 2, 0, 0, 0},
+        }, tileManager.Board);
+        
     }
 }
