@@ -13,9 +13,14 @@ public class AddTiles : MonoBehaviour
     public GameObject p2TilePrefab;
     private TileManager _tileManager = new TileManager();
     public Player player = Player.P1;
-    
+
+    public GameObject winPanel;
+    public Text winText;
     private void Start()
     {
+        winPanel.SetActive(false);
+        winText.text = "";
+        
         var numberOfColumn = new ArrayList();
         var buttons = GameObject.FindGameObjectsWithTag(tag: "AddTileButton");
         for (var i = 0; i < buttons.Length; i++)
@@ -32,6 +37,11 @@ public class AddTiles : MonoBehaviour
         
         Instantiate(player == Player.P1 ? p1TilePrefab : p2TilePrefab, tilesContainers.GetChild(index));
         _tileManager.AddTile(index,player);
+        if (_tileManager.DidTurnWin(index))
+        {
+            winPanel.SetActive(true);
+            winText.text = (player == Player.P1 ? "Player 1" : "Player 2") + "Win!!!";
+        }
         player = player == Player.P1 ? Player.P2 : Player.P1;
         //_tileManager.NumberOfTiles[index]++;
     }

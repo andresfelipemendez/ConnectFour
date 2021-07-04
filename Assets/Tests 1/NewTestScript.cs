@@ -167,7 +167,6 @@ public class NewTestScript
         }, tileManager.Board);
         
         tileManager.AddTile(0,Player.P1);
-        PrintMatrix(tileManager.Board);
         Assert.AreEqual(new int[]{ 2,0,0,1,0,0,0}, tileManager.NumberOfTiles);
         Assert.AreEqual(new int[6, 7]
         {
@@ -179,5 +178,34 @@ public class NewTestScript
             {1, 0, 0, 2, 0, 0, 0},
         }, tileManager.Board);
         
+    }
+    
+    [Test]
+    public void IntegrationTestWin()
+    {
+        var tileManager = new TileManager
+        {
+            NumberOfTiles = new int[7]
+        };
+        
+        tileManager.AddTile(0,Player.P1);
+        Assert.AreEqual(new int[]{ 1,0,0,0,0,0,0}, tileManager.NumberOfTiles);
+        
+        tileManager.AddTile(3,Player.P2);
+        Assert.AreEqual(new int[]{ 1,0,0,1,0,0,0}, tileManager.NumberOfTiles);
+        
+        tileManager.AddTile(0,Player.P1);
+        Assert.AreEqual(new int[]{ 2,0,0,1,0,0,0}, tileManager.NumberOfTiles);
+        
+        tileManager.AddTile(0,Player.P1);
+        Assert.AreEqual(new int[]{ 3,0,0,1,0,0,0}, tileManager.NumberOfTiles);
+       
+        Assert.AreEqual(false,tileManager.DidTurnWin(0));
+        
+        tileManager.AddTile(0,Player.P1);
+        Assert.AreEqual(new int[]{ 4,0,0,1,0,0,0}, tileManager.NumberOfTiles);
+        
+        Assert.AreEqual(true,tileManager.DidTurnWin(0));
+
     }
 }

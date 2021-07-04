@@ -21,6 +21,24 @@ public class TileManager
         Board[y,x] = (int) player;
     }
     
+    public bool DidTurnWin(int column)
+    {
+        var y = (Board.GetLength(0)) - NumberOfTiles[column];
+        var x = column;
+        
+        var upDiagonal = GetDiagonalUp(x, y, Board);
+        var downDiagonal = GetDiagonalDown(x, y, Board);
+        var row = GetRow(y, Board);
+        var col = GetColumn(x, Board);
+        
+        var (udWin, udPlayer) = IsWin(upDiagonal);
+        var (ddWin, ddPlayer) = IsWin(downDiagonal);
+        var (rWin, rPlayer) = IsWin(row);
+        var (cWin, cPlayer) = IsWin(col);
+
+        return udWin || ddWin || rWin || cWin;
+    }
+    
     public void AddTile(int x, int y, int val)
     {
         Board[x, y] = val;
@@ -43,6 +61,28 @@ public class TileManager
         }
         
         return (x1, y1);
+    }
+
+    public static int[] GetRow(int y, int[,] board)
+    {
+        ArrayList row = new ArrayList();
+        int width = board.GetLength(1);
+        for (int i = 0; i < width; i++)
+        {
+            row.Add( board[y, i]);
+        }
+        return (int[]) row.ToArray(typeof(int));
+    }
+    
+    public static int[] GetColumn(int x, int[,] board)
+    {
+        ArrayList column = new ArrayList();
+        int height = board.GetLength(0);
+        for (int i = 0; i < height; i++)
+        {
+            column.Add( board[i, x]);
+        }
+        return (int[]) column.ToArray(typeof(int));
     }
 
     public static (int sx, int sy) GetDiagonalDownStart(int x, int y,int width, int height)
@@ -129,4 +169,6 @@ public class TileManager
             
         return (player != 0, player);
     }
+
+    
 }
