@@ -87,4 +87,31 @@ public class TileManager
         
         return res;
     }
+
+    public static (bool res, int player) IsWin(int[] line)
+    {
+        int count = 0, player = 0;
+        var len = line.Length - 1;
+        for (var i = 0; i < len ; i++)
+        {
+            var next = i + 1;
+            
+            if (line[i] == 0 || line[i] != line[next])
+            {
+                count = 0;
+            }
+            else
+            {
+                count++;
+            }
+
+            if (count == 3)
+            {
+                player = line[i];
+                break;
+            }
+        }
+            
+        return (player != 0, player);
+    }
 }

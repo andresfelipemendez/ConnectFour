@@ -113,4 +113,21 @@ public class NewTestScript
         Assert.AreEqual(new []{16,12,8,4,0}, res);
         Assert.AreEqual(new []{22,18,14,10,0}, res1);
     }
+
+    [Test]
+    public void TestWinCondition()
+    {
+        Assert.AreEqual((false,0), TileManager.IsWin(new []{0,0,0,0,0}));
+        Assert.AreEqual((false,0), TileManager.IsWin(new []{1,0,1,0,1}));
+        Assert.AreEqual((false,0), TileManager.IsWin(new []{1,1,1,0,0}));
+        Assert.AreEqual((true,2), TileManager.IsWin(new []{0,2,2,2,2}));
+        Assert.AreEqual((true,2), TileManager.IsWin(new []{2,2,2,2,2}));
+        Assert.AreEqual((true,2), TileManager.IsWin(new []{2,2,2,2,0}));
+        Assert.AreEqual((false,0), TileManager.IsWin(new []{2,2,0,2,2}));
+        
+        Assert.AreEqual((true,2), TileManager.IsWin(new []{0,2,2,2,2}));
+        Assert.AreEqual((true,2), TileManager.IsWin(new []{2,2,2,2,2}));
+        Assert.AreEqual((true,2), TileManager.IsWin(new []{2,2,2,2,0}));
+        Assert.AreEqual((false,0), TileManager.IsWin(new []{2,2,0,2,2}));
+    }
 }
