@@ -208,4 +208,25 @@ public class NewTestScript
         Assert.AreEqual(true,tileManager.DidTurnWin(0));
 
     }
+    
+    [Test]
+    public void LegalMoveTest()
+    {
+        var tileManager = new TileManager
+        {
+            NumberOfTiles = new int[7]
+        };
+        
+        tileManager.AddTile(0,Player.P1);
+        tileManager.AddTile(0,Player.P1);
+        tileManager.AddTile(0,Player.P1);
+        tileManager.AddTile(0,Player.P1);
+        tileManager.AddTile(0,Player.P1);
+
+        Assert.AreEqual(true, tileManager.IsLegalMove(0));
+        tileManager.AddTile(0,Player.P1);
+        Assert.AreEqual(false, tileManager.IsLegalMove(0));
+        
+        
+    }
 }

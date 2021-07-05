@@ -11,7 +11,28 @@ public enum Player
 public class TileManager 
 {
     public int[] NumberOfTiles;
-    public int[,] Board = new int[6, 7];
+    public int[,] Board;
+    public int numberOfMoves;
+    
+    public TileManager()
+    {
+        NumberOfTiles = new int[7];
+        Board = new int[6, 7];
+        numberOfMoves = 0;
+    }
+    
+    public void Clear()
+    {
+        NumberOfTiles = new int[7];
+        Board = new int[6, 7];
+        numberOfMoves = 0;
+    }
+    
+    public TileManager(TileManager other) {
+        this.numberOfMoves = other.numberOfMoves;
+        this.NumberOfTiles = other.NumberOfTiles.Clone() as int[];
+        this.Board = other.Board.Clone() as int[,];
+    }
     
     public void AddTile(int column, Player player)
     {
@@ -19,6 +40,12 @@ public class TileManager
         var y = (Board.GetLength(0)) - NumberOfTiles[column];
         var x = column;
         Board[y,x] = (int) player;
+        numberOfMoves++;
+    }
+
+    public bool IsLegalMove(int column)
+    {
+       return NumberOfTiles[column] < Board.GetLength(0) ;
     }
     
     public bool DidTurnWin(int column)
@@ -37,6 +64,21 @@ public class TileManager
         var (cWin, cPlayer) = IsWin(col);
 
         return udWin || ddWin || rWin || cWin;
+    }
+    
+    public bool WouldTurnWin(int column, Player player)
+    {
+        NumberOfTiles[column]++;
+        var y = (Board.GetLength(0)) - NumberOfTiles[column];
+        var x = column;
+        Board[y,x] = (int) player;
+        
+        var win = DidTurnWin(column); 
+        
+        NumberOfTiles[column]--;
+        Board[y, x] = 0;
+        
+        return win;
     }
     
     public void AddTile(int x, int y, int val)
@@ -170,5 +212,5 @@ public class TileManager
         return (player != 0, player);
     }
 
-    
+
 }
