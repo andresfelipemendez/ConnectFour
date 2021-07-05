@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     public GameObject winPanel;
     
     public Transform ContainerOfTileContainers;
+    public Text playerTurnText;
     public Text winText;
 
     private GameState _state = GameState.Menu;
@@ -78,6 +79,25 @@ public class GameManager : MonoBehaviour
         ClearBoard();
         GoToState(GameState.Menu);
     }
+
+    public void UpdatePlayerLabel()
+    {
+        switch (_tileManager.player)
+        {
+            case Player.P1:
+                playerTurnText.text = "Player 1";
+                playerTurnText.color = Color.red;
+                break;
+            case Player.P2:
+                playerTurnText.text = "Player 2";
+                playerTurnText.color = Color.yellow;
+                break;
+            default:
+                break;
+        }
+        
+      //playerTurnText  
+    } 
 
     private void ClearBoard()
     {

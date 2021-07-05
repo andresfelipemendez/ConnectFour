@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(GameManager))]
 public class AddTiles : MonoBehaviour
@@ -57,13 +58,15 @@ public class AddTiles : MonoBehaviour
         if (_tileManager.DidTurnWin(index))
         {
             gameManager.GameOver();
-            
+            return;
         }
         player = player == Player.P1 ? Player.P2 : Player.P1;
+        gameManager.UpdatePlayerLabel();
         
         if (isAIEnabled && player == Player.P2)
         {
-            var (s, col) = _ai.NegaMax(_tileManager);
+            //var (s, col) = _ai.Random(_tileManager);
+            int col = Random.Range(0, 7);
             AddTile(col);
         }
         
