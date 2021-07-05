@@ -66,7 +66,8 @@ public class GameManager : MonoBehaviour
     }
     
     public void BeginGame()
-    { 
+    {
+        UpdatePlayerLabel();
         GoToState(GameState.GamePlay);
     }
     public void  GameOver(){
@@ -95,8 +96,6 @@ public class GameManager : MonoBehaviour
             default:
                 break;
         }
-        
-      //playerTurnText  
     } 
 
     private void ClearBoard()

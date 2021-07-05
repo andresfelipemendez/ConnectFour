@@ -25,6 +25,7 @@ public class AddTiles : MonoBehaviour
     {
         player = Player.P1;
         _tileManager.Clear();
+        gameManager.UpdatePlayerLabel();
     }
     
     public  void AddListeners()
@@ -69,8 +70,5 @@ public class AddTiles : MonoBehaviour
             int col = Random.Range(0, 7);
             AddTile(col);
         }
-        
-        
     }
-
 }
