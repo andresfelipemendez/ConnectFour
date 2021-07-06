@@ -20,26 +20,26 @@ public class AddTiles : MonoBehaviour
     public GameManager gameManager;
     public bool isAIEnabled = false;
     private MiniMaxAI _ai = new MiniMaxAI();
-    
+
     public void Clear()
     {
         player = Player.P1;
         _tileManager.Clear();
         gameManager.UpdatePlayerLabel();
     }
-    
-    public  void AddListeners()
+
+    public void AddListeners()
     {
         var numberOfColumn = new ArrayList();
         var buttons = GameObject.FindGameObjectsWithTag(tag: "AddTileButton");
         for (var i = 0; i < buttons.Length; i++)
         {
             var i1 = i;
-            buttons[i].GetComponent<Button>()?.onClick.AddListener(call: ()=> AddTile(index: i1));
+            buttons[i].GetComponent<Button>()?.onClick.AddListener(call: () => AddTile(index: i1));
             numberOfColumn.Add(0);
         }
 
-        _tileManager.NumberOfTiles = (int[]) numberOfColumn.ToArray(typeof(int));
+        _tileManager.NumberOfTiles = (int[])numberOfColumn.ToArray(typeof(int));
     }
 
     public void RemoveListeners()
@@ -52,10 +52,11 @@ public class AddTiles : MonoBehaviour
         }
     }
 
-    private void AddTile(int index) {
-        
+    private void AddTile(int index)
+    {
+
         Instantiate(player == Player.P1 ? p1TilePrefab : p2TilePrefab, tilesContainers.GetChild(index));
-        _tileManager.AddTile(index,player);
+        _tileManager.AddTile(index, player);
         if (_tileManager.DidTurnWin(index))
         {
             gameManager.GameOver();
@@ -63,10 +64,10 @@ public class AddTiles : MonoBehaviour
         }
         player = player == Player.P1 ? Player.P2 : Player.P1;
         gameManager.UpdatePlayerLabel();
-        
+
         if (isAIEnabled && player == Player.P2)
         {
-            //var (s, col) = _ai.Random(_tileManager);
+            //var (s, col) = _ai.NegaMax(_tileManager, 3);
             int col = Random.Range(0, 7);
             AddTile(col);
         }
